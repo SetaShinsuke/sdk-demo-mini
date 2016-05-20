@@ -39,6 +39,9 @@ public class MainActivity extends FragmentActivity {
                 Toast.makeText(context, "发送表情 : " + emoticon.getId() , Toast.LENGTH_SHORT).show();
             }
         });
+
+//        String s = "a";
+//        LogX.d("s : " + s.charAt(2));
     }
 
     public void onClick(View view){
