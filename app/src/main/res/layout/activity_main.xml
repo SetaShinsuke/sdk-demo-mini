@@ -33,6 +33,7 @@
                     android:id="@+id/login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#555555"
                     android:layout_margin="8dp"
                     android:text="登录"
                     android:textSize="13sp"
@@ -46,6 +47,7 @@
                         android:id="@+id/show_keyboard"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:background="#555555"
                         android:layout_weight="1"
                         android:layout_margin="8dp"
                         android:text="显示键盘"
@@ -56,6 +58,7 @@
                         android:id="@+id/hide_keyboard"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:background="#555555"
                         android:layout_weight="1"
                         android:layout_margin="8dp"
                         android:text="隐藏键盘"
@@ -63,6 +66,16 @@
                         android:onClick="onClick"
                         />
                 </LinearLayout>
+                <Button
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#555555"
+                    android:layout_margin="8dp"
+                    android:text="退出登录"
+                    android:textSize="13sp"
+                    android:onClick="onClick"
+                    />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -73,4 +86,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         />
+
+    <FrameLayout
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone"
+        >
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
 </FrameLayout>
