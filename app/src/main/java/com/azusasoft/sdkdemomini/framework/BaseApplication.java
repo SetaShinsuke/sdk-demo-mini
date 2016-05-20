@@ -6,6 +6,7 @@ import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 
 /**
  * Created by SETA on 2016/5/19.
+ * 应用入口
  */
 public class BaseApplication extends Application {
     private final String APP_ID = "65737441-7070-6c69-6361-74696f6e4944";
