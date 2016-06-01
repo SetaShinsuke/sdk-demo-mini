@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.azusasoft.sdkdemomini"
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -22,10 +22,10 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
 
     compile(name:'facehubSDKLib-release', ext:'aar')
-    compile 'com.android.support:recyclerview-v7:+'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
