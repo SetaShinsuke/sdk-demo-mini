@@ -49,6 +49,7 @@
                     android:text="登录"
                     android:textSize="13sp"
                     android:onClick="onClick"
+                    android:visibility="gone"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
