@@ -12,6 +12,7 @@ import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
 import com.azusasoft.facehubcloudsdk.api.models.Emoticon;
+import com.azusasoft.facehubcloudsdk.api.models.Image;
 import com.azusasoft.facehubcloudsdk.api.utils.LogX;
 import com.azusasoft.facehubcloudsdk.views.EmoticonKeyboardView;
 import com.azusasoft.facehubcloudsdk.views.EmoticonSendListener;
@@ -31,40 +32,52 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.log);
         progressBar = findViewById(R.id.progress_bar);
-        toast = Toast.makeText(context,"toast",Toast.LENGTH_SHORT);
+        toast = Toast.makeText(context, "toast", Toast.LENGTH_SHORT);
+
+        /** ======================== 表情键盘使用范例 ======================== */
         emoticonKeyboardView = (EmoticonKeyboardView) findViewById(R.id.emo_keyboard);
-        emoticonKeyboardView.initKeyboard();
+        /**
+         * 键盘初始化参数说明 : {@link EmoticonKeyboardView#initKeyboard(boolean, String, View.OnClickListener)}
+         *              1.是否有本地预置表情
+         *              2.键盘右下角发送按钮的配色(RGB值)，可设置为空
+         *              3.键盘右下角发送按钮的点击回调，可设置为空
+         * */
+//        emoticonKeyboardView.initKeyboard(true, "#467fff", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String string = "点击发送按钮,发送消息.";
+//                textView.setText(string);
+//                showToast(string, false);
+//            }
+//        });
+        emoticonKeyboardView.initKeyboard(false,null,null);
+
+        /**
+         * 点击表情后的回调
+         * 可根据 {@link Emoticon#isLocal()} 来区分是否是预存的表情
+         * 可根据{@link Emoticon#getFilePath(Image.Size)} 来拿取表情文件的路径
+         *      注意! : 如果是本地表情，则返回其文件名,如"emoji_id_1.png",因此起路径应为 "assets://emoji/emoji_id_1.png"
+         */
         emoticonKeyboardView.setEmoticonSendListener(new EmoticonSendListener() {
             @Override
             public void onSend(Emoticon emoticon) {
-                textView.setText("发送表情 : " + emoticon);
-                showToast("发送表情 : " + emoticon.getId(),false);
+                if(emoticon.isLocal()) {
+                    String  s = "发送表情 : [" + emoticon.getDescription() + "]";
+                    s+="\n本地表情资源路径 : " + "assets://emoji/" + emoticon.getFilePath(Image.Size.FULL);
+                    textView.setText(s);
+                    showToast(s, false);
+                }else {
+                    String  s = "发送表情 : [" + emoticon.getId() + "]";
+                    s+="\n表情文件路径 : " + emoticon.getFilePath(Image.Size.FULL);
+                    textView.setText(s);
+                    showToast(s, false);
+                }
             }
         });
-
-//        final Thread.UncaughtExceptionHandler defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
-//        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-//            @Override
-//            public void uncaughtException(Thread thread, Throwable ex) {
-//                LogX.e("崩溃了 : " + ex);
-//                LogX.e(("崩溃详情 : " ));
-//                for(int i=0;i<ex.getStackTrace().length;i++){
-//                    LogX.e(i + " : " + ex.getStackTrace()[i]);
-//                }
-//                LogX.w("Cause : ");
-//                for (int i=0;i<ex.getCause().getStackTrace().length;i++){
-//                    LogX.w( i + " : " + ex.getCause().getStackTrace()[i]);
-//                }
-//                defaultHandler.uncaughtException(thread,ex);
-//            }
-//        });
-
-//        String str = "a";
-//        LogX.d("str : " + str.charAt(2));
     }
 
-    public void onClick(View view){
-        String s="";
+    public void onClick(View view) {
+        String s = "";
         String userId;
         switch (view.getId()) {
             case R.id.crash:
@@ -79,7 +92,7 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onResponse(Object o) {
                         textView.setText("登录成功!");
-                        showToast("登录成功",true);
+                        showToast("登录成功", true);
                         emoticonKeyboardView.refresh();
                         progressBar.setVisibility(View.GONE);
                     }
@@ -87,7 +100,7 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onError(Exception e) {
                         textView.setText("登录失败!\n" + e);
-                        showToast("登录失败",true);
+                        showToast("登录失败", true);
                         progressBar.setVisibility(View.GONE);
                     }
                 }, new ProgressInterface() {
@@ -100,8 +113,8 @@ public class MainActivity extends FragmentActivity {
                 break;
             case R.id.show_keyboard:
                 userId = FacehubApi.getApi().getUser().getUserId();
-                if(userId==null || userId.equals("")){
-                    showToast("请先登录!",true);
+                if (userId == null || userId.equals("")) {
+                    showToast("请先登录!", true);
                     return;
                 }
                 textView.setText("显示键盘");
@@ -109,8 +122,8 @@ public class MainActivity extends FragmentActivity {
                 break;
             case R.id.hide_keyboard:
                 userId = FacehubApi.getApi().getUser().getUserId();
-                if(userId==null || userId.equals("")){
-                    showToast("请先登录!",true);
+                if (userId == null || userId.equals("")) {
+                    showToast("请先登录!", true);
                     return;
                 }
                 textView.setText("隐藏键盘");
@@ -119,26 +132,35 @@ public class MainActivity extends FragmentActivity {
             case R.id.logout:
                 LogX.fastLog("退出登录");
                 userId = FacehubApi.getApi().getUser().getUserId();
-                if(userId==null || userId.equals("")){
-                    showToast("清先登录!",true);
+                if (userId == null || userId.equals("")) {
+                    showToast("清先登录!", true);
                     return;
                 }
                 FacehubApi.getApi().logout();
                 emoticonKeyboardView.hide();
                 emoticonKeyboardView.refresh();
                 textView.setText("已退出.");
-                showToast("退出成功!",true);
+                showToast("退出成功!", true);
                 break;
         }
     }
 
-    private void showToast(CharSequence content,boolean isLong){
+    private void showToast(CharSequence content, boolean isLong) {
         toast.cancel();
-        if(isLong) {
+        if (isLong) {
             toast = Toast.makeText(context, content, Toast.LENGTH_LONG);
-        }else {
+        } else {
             toast = Toast.makeText(context, content, Toast.LENGTH_SHORT);
         }
         toast.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(emoticonKeyboardView.getVisibility()==View.VISIBLE){
+            emoticonKeyboardView.hide();
+            return;
+        }
+        super.onBackPressed();
     }
 }

@@ -30,11 +30,16 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //1.初始化api
         FacehubApi.init(getApplicationContext());
         FacehubApi.initViews(getApplicationContext());
+        //2.设置接入应用id
         FacehubApi.getApi().setAppId(APP_ID);
+        //3.设置主色调 (实例:蓝色)
+        FacehubApi.getApi().setThemeColor("#3f51b5");
+        //4.设置商店页面标题文字
+        FacehubApi.getApi().setEmoStoreTitle("事例标题");
 
-//        initHttpReporter();
     }
 
     /**
