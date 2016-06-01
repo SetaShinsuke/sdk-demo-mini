@@ -37,6 +37,7 @@ public class LoginActivity extends BaseActivity {
         if (userId != null && !userId.equals("")) {
             Intent intent  = new Intent(context,MainActivity.class);
             context.startActivity(intent);
+            finish();
         }
     }
 
@@ -48,6 +49,7 @@ public class LoginActivity extends BaseActivity {
                 progressBar.setVisibility(View.GONE);
                 Intent intent  = new Intent(context,MainActivity.class);
                 context.startActivity(intent);
+                finish();
             }
 
             @Override

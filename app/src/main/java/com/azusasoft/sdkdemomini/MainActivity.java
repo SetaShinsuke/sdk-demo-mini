@@ -2,6 +2,7 @@ package com.azusasoft.sdkdemomini;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -68,7 +69,7 @@ public class MainActivity extends FragmentActivity {
         try {
             emoticonKeyboardView.loadEmoticonFromLocal(1,"emoticonDescription.json",true);
         } catch (LocalEmoPackageParseException e) {
-            Log.e("facecloud_demo","解析预置表情 配置Json出错 : " + e);
+            Log.e(Constants.TAG,"解析预置表情 配置Json出错 : " + e);
             e.printStackTrace();
         }
 
@@ -127,7 +128,7 @@ public class MainActivity extends FragmentActivity {
         switch (view.getId()) {
             case R.id.crash:
                 String str = "a";
-                LogX.d("str : " + str.charAt(2));
+                Log.d(Constants.TAG , "str : " + str.charAt(2));
                 break;
 
 //            case R.id.login:
@@ -175,7 +176,7 @@ public class MainActivity extends FragmentActivity {
                 emoticonKeyboardView.hide();
                 break;
             case R.id.logout:
-                LogX.fastLog("退出登录");
+                Log.v(Constants.TAG ,"退出登录");
                 userId = FacehubApi.getApi().getUser().getUserId();
                 if (userId == null || userId.equals("")) {
                     showToast("清先登录!", true);
@@ -186,6 +187,8 @@ public class MainActivity extends FragmentActivity {
                 emoticonKeyboardView.refresh();
                 textView.setText("已退出.");
                 showToast("退出成功!", true);
+                Intent intent = new Intent(context,LoginActivity.class);
+                context.startActivity(intent);
                 finish();
                 break;
         }
