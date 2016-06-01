@@ -30,6 +30,17 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <Button
+                    android:id="@+id/crash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#cc0c0c"
+                    android:layout_margin="8dp"
+                    android:text="点击崩溃"
+                    android:textSize="13sp"
+                    android:onClick="onClick"
+                    android:visibility="gone"
+                    />
+                <Button
                     android:id="@+id/login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

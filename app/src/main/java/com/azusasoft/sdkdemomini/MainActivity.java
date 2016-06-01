@@ -22,6 +22,7 @@ public class MainActivity extends FragmentActivity {
     private Context context;
     private EmoticonKeyboardView emoticonKeyboardView;
     private View progressBar;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +31,47 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.log);
         progressBar = findViewById(R.id.progress_bar);
+        toast = Toast.makeText(context,"toast",Toast.LENGTH_SHORT);
         emoticonKeyboardView = (EmoticonKeyboardView) findViewById(R.id.emo_keyboard);
         emoticonKeyboardView.initKeyboard();
         emoticonKeyboardView.setEmoticonSendListener(new EmoticonSendListener() {
             @Override
             public void onSend(Emoticon emoticon) {
                 textView.setText("发送表情 : " + emoticon);
-                Toast.makeText(context, "发送表情 : " + emoticon.getId() , Toast.LENGTH_SHORT).show();
+                showToast("发送表情 : " + emoticon.getId(),false);
             }
         });
+
+//        final Thread.UncaughtExceptionHandler defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
+//        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+//            @Override
+//            public void uncaughtException(Thread thread, Throwable ex) {
+//                LogX.e("崩溃了 : " + ex);
+//                LogX.e(("崩溃详情 : " ));
+//                for(int i=0;i<ex.getStackTrace().length;i++){
+//                    LogX.e(i + " : " + ex.getStackTrace()[i]);
+//                }
+//                LogX.w("Cause : ");
+//                for (int i=0;i<ex.getCause().getStackTrace().length;i++){
+//                    LogX.w( i + " : " + ex.getCause().getStackTrace()[i]);
+//                }
+//                defaultHandler.uncaughtException(thread,ex);
+//            }
+//        });
+
+//        String str = "a";
+//        LogX.d("str : " + str.charAt(2));
     }
 
     public void onClick(View view){
         String s="";
         String userId;
         switch (view.getId()) {
+            case R.id.crash:
+                String str = "a";
+                LogX.d("str : " + str.charAt(2));
+                break;
+
             case R.id.login:
                 s = "登录中...";
                 progressBar.setVisibility(View.VISIBLE);
@@ -52,7 +79,7 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onResponse(Object o) {
                         textView.setText("登录成功!");
-                        Toast.makeText(context, "登录成功", Toast.LENGTH_LONG).show();
+                        showToast("登录成功",true);
                         emoticonKeyboardView.refresh();
                         progressBar.setVisibility(View.GONE);
                     }
@@ -60,7 +87,7 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onError(Exception e) {
                         textView.setText("登录失败!\n" + e);
-                        Toast.makeText(context, "登录失败", Toast.LENGTH_LONG).show();
+                        showToast("登录失败",true);
                         progressBar.setVisibility(View.GONE);
                     }
                 }, new ProgressInterface() {
@@ -74,7 +101,7 @@ public class MainActivity extends FragmentActivity {
             case R.id.show_keyboard:
                 userId = FacehubApi.getApi().getUser().getUserId();
                 if(userId==null || userId.equals("")){
-                    Toast.makeText(context, "请先登录!", Toast.LENGTH_LONG).show();
+                    showToast("请先登录!",true);
                     return;
                 }
                 textView.setText("显示键盘");
@@ -83,7 +110,7 @@ public class MainActivity extends FragmentActivity {
             case R.id.hide_keyboard:
                 userId = FacehubApi.getApi().getUser().getUserId();
                 if(userId==null || userId.equals("")){
-                    Toast.makeText(context, "请先登录!", Toast.LENGTH_LONG).show();
+                    showToast("请先登录!",true);
                     return;
                 }
                 textView.setText("隐藏键盘");
@@ -93,15 +120,25 @@ public class MainActivity extends FragmentActivity {
                 LogX.fastLog("退出登录");
                 userId = FacehubApi.getApi().getUser().getUserId();
                 if(userId==null || userId.equals("")){
-                    Toast.makeText(context, "请先登录!", Toast.LENGTH_LONG).show();
+                    showToast("清先登录!",true);
                     return;
                 }
                 FacehubApi.getApi().logout();
                 emoticonKeyboardView.hide();
                 emoticonKeyboardView.refresh();
                 textView.setText("已退出.");
-                Toast.makeText(context, "退出成功!", Toast.LENGTH_LONG).show();
+                showToast("退出成功!",true);
                 break;
         }
+    }
+
+    private void showToast(CharSequence content,boolean isLong){
+        toast.cancel();
+        if(isLong) {
+            toast = Toast.makeText(context, content, Toast.LENGTH_LONG);
+        }else {
+            toast = Toast.makeText(context, content, Toast.LENGTH_SHORT);
+        }
+        toast.show();
     }
 }
