@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.azusasoft.facehubcloudsdk.activities.ListsManageActivity;
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.LocalEmoPackageParseException;
 import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
@@ -120,6 +121,9 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
+//        Intent intent = new Intent(this, ListsManageActivityNew.class);
+//        Intent intent = new Intent(this, ListsManageActivity.class);
+//        startActivity(intent);
     }
 
     public void onClick(View view) {
@@ -179,7 +183,7 @@ public class MainActivity extends FragmentActivity {
                 Log.v(Constants.TAG ,"退出登录");
                 userId = FacehubApi.getApi().getUser().getUserId();
                 if (userId == null || userId.equals("")) {
-                    showToast("清先登录!", true);
+                    showToast("请先登录!", true);
                     return;
                 }
                 FacehubApi.getApi().logout();
