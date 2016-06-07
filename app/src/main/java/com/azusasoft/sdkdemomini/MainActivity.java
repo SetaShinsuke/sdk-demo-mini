@@ -115,10 +115,6 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
-
-        Intent intent = new Intent(this, ListsManageActivityNew.class);
-//        Intent intent = new Intent(this, ListsManageActivity.class);
-        startActivity(intent);
     }
 
     public void onClick(View view) {
@@ -190,6 +186,13 @@ public class MainActivity extends FragmentActivity {
                 context.startActivity(intent);
                 finish();
                 break;
+            case R.id.find:
+                String keyword = "0";
+                textView.setText("查找表情 【"+keyword+"】");
+                Emoticon emoticon = FacehubApi.getApi().findEmoticonByDescription(keyword);
+                textView.setText("查找表情 【"+keyword +"】 result : " + emoticon);
+                FacehubApi.getDbHelper().export();
+                break;
         }
     }
 
@@ -210,5 +213,7 @@ public class MainActivity extends FragmentActivity {
             return;
         }
         super.onBackPressed();
+//        Intent intent = new Intent(this,LoginActivity.class);
+//        startActivity(intent);
     }
 }
