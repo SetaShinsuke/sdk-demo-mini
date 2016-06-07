@@ -1,6 +1,5 @@
 package com.azusasoft.sdkdemomini;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,19 +9,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.azusasoft.facehubcloudsdk.activities.ListsManageActivity;
 import com.azusasoft.facehubcloudsdk.activities.ListsManageActivityNew;
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.LocalEmoPackageParseException;
-import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
-import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
 import com.azusasoft.facehubcloudsdk.api.models.Emoticon;
 import com.azusasoft.facehubcloudsdk.api.models.Image;
-import com.azusasoft.facehubcloudsdk.api.utils.LogX;
 import com.azusasoft.facehubcloudsdk.views.EmoticonKeyboardView;
 import com.azusasoft.facehubcloudsdk.views.EmoticonSendListener;
 import com.azusasoft.facehubcloudsdk.views.OnDeleteListener;
-import com.azusasoft.sdkdemomini.framework.BaseApplication;
 
 public class MainActivity extends FragmentActivity {
     private TextView textView;

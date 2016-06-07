@@ -26,7 +26,8 @@ public class BaseApplication extends Application {
         //2.设置接入应用id
         FacehubApi.getApi().setAppId(APP_ID);
         //3.设置主色调 (示例:蓝色)
-        FacehubApi.getApi().setThemeColor("#f33847");
+//        FacehubApi.getApi().setThemeColor("#f33847");
+        FacehubApi.getApi().setThemeColor("#3f51b5");
         //4.设置商店页面标题文字
         FacehubApi.getApi().setEmoStoreTitle("事例标题");
 
