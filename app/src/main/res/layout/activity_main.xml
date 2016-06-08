@@ -88,6 +88,17 @@
                     android:textSize="13sp"
                     android:onClick="onClick"
                     />
+                <Button
+                    android:id="@+id/find"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#555555"
+                    android:layout_margin="8dp"
+                    android:text="查找表情"
+                    android:textSize="13sp"
+                    android:onClick="onClick"
+                    android:visibility="gone"
+                    />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

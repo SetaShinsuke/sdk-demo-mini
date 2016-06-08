@@ -14,6 +14,7 @@ import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.LocalEmoPackageParseException;
 import com.azusasoft.facehubcloudsdk.api.models.Emoticon;
 import com.azusasoft.facehubcloudsdk.api.models.Image;
+import com.azusasoft.facehubcloudsdk.api.utils.LogX;
 import com.azusasoft.facehubcloudsdk.views.EmoticonKeyboardView;
 import com.azusasoft.facehubcloudsdk.views.EmoticonSendListener;
 import com.azusasoft.facehubcloudsdk.views.OnDeleteListener;
@@ -28,6 +29,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogX.fastLog("Main onCreate.");
         this.context = this;
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.log);
@@ -115,10 +117,6 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
-
-//        Intent intent = new Intent(this, ListsManageActivityNew.class);
-//        Intent intent = new Intent(this, ListsManageActivity.class);
-//        startActivity(intent);
     }
 
     public void onClick(View view) {
@@ -190,6 +188,13 @@ public class MainActivity extends FragmentActivity {
                 context.startActivity(intent);
                 finish();
                 break;
+            case R.id.find:
+//                String keyword = "0";
+//                textView.setText("查找表情 【"+keyword+"】");
+//                Emoticon emoticon = FacehubApi.getApi().findEmoticonByDescription(keyword);
+//                textView.setText("查找表情 【"+keyword +"】 result : " + emoticon);
+//                FacehubApi.getDbHelper().export();
+                break;
         }
     }
 
@@ -209,6 +214,8 @@ public class MainActivity extends FragmentActivity {
             emoticonKeyboardView.hide();
             return;
         }
-        super.onBackPressed();
+//        super.onBackPressed();
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
     }
 }
