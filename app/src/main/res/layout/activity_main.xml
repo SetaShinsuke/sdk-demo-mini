@@ -79,16 +79,6 @@
                         />
                 </LinearLayout>
                 <Button
-                    android:id="@+id/logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#555555"
-                    android:layout_margin="8dp"
-                    android:text="退出登录"
-                    android:textSize="13sp"
-                    android:onClick="onClick"
-                    />
-                <Button
                     android:id="@+id/find"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,7 +87,17 @@
                     android:text="查找表情"
                     android:textSize="13sp"
                     android:onClick="onClick"
-                    android:visibility="gone"
+                    android:visibility="visible"
+                    />
+                <Button
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#555555"
+                    android:layout_margin="8dp"
+                    android:text="退出登录"
+                    android:textSize="13sp"
+                    android:onClick="onClick"
                     />
             </LinearLayout>
         </ScrollView>
@@ -123,5 +123,27 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/relate_emo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+        <FrameLayout
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:background="@drawable/emoji_related"
+            >
+            <com.azusasoft.facehubcloudsdk.views.viewUtils.GifViewFC
+                android:id="@+id/relate_emo_image"
+                android:layout_width="83dp"
+                android:layout_height="83dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="3dp"
+                />
+        </FrameLayout>
     </FrameLayout>
 </FrameLayout>

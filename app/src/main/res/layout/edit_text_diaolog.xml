@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/keyword_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:padding="8dp"
+        android:layout_gravity="center"
+        android:textColor="#22225c"
+        android:textColorHint="#989898"
+        android:textCursorDrawable="@null"
+        android:textSize="15sp"
+        android:hint="请输入关键词"
+        android:background="@android:color/white"
+        />
+</FrameLayout>
