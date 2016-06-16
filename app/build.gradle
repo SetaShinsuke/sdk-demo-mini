@@ -24,10 +24,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:21+'
 
-    compile(name:'facehubSDKLib-release', ext:'aar')
-//    compile project(':facehubSDKLib')
+//    compile(name:'facehubSDKLib-release', ext:'aar')
+    compile project(':facehubSDKLib')
 
-    compile 'com.android.support:recyclerview-v7:21+'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
