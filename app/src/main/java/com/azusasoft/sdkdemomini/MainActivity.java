@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.azusasoft.facehubcloudsdk.activities.ListsManageActivityNew;
+import com.azusasoft.facehubcloudsdk.activities.EmoStoreActivity;
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.LocalEmoPackageParseException;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
@@ -125,6 +126,11 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
+
+
+
+            Intent intent  = new Intent(context,EmoStoreActivity.class);
+            context.startActivity(intent);
     }
 
     public void onClick(View view) {
