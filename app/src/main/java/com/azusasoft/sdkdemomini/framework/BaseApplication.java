@@ -18,7 +18,7 @@ public class BaseApplication extends Application {
 //    public static String USER_ID = "530d41e7-e555-4c4b-8184-8f5bebe4d00d";
 //    public static String AUTH_TOKEN = "a9568429b1ba4170480e070122ed380f";
 
-    //内网
+    //测服
 //    public static String USER_ID = "045978c8-5d13-4a81-beac-4ec28d1f304f";
 //    public static String AUTH_TOKEN = "02db12b9350f7dceb158995c01e21a2a";
 

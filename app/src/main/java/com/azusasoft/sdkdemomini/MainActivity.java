@@ -1,18 +1,14 @@
 package com.azusasoft.sdkdemomini;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.azusasoft.facehubcloudsdk.activities.ListsManageActivityNew;
-import com.azusasoft.facehubcloudsdk.activities.EmoStoreActivity;
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.LocalEmoPackageParseException;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
@@ -24,6 +20,8 @@ import com.azusasoft.facehubcloudsdk.views.EmoticonSendListener;
 import com.azusasoft.facehubcloudsdk.views.OnDeleteListener;
 import com.azusasoft.facehubcloudsdk.views.viewUtils.GifViewFC;
 import com.azusasoft.sdkdemomini.views.FindEmoticonDialog;
+
+//import com.azusasoft.facehubcloudsdk.activities.ListsManageActivityNew;
 
 public class MainActivity extends FragmentActivity {
 
@@ -129,8 +127,8 @@ public class MainActivity extends FragmentActivity {
 
 
 
-            Intent intent  = new Intent(context,EmoStoreActivity.class);
-            context.startActivity(intent);
+//            Intent intent  = new Intent(context,EmoStoreActivity.class);
+//            context.startActivity(intent);
     }
 
     public void onClick(View view) {
