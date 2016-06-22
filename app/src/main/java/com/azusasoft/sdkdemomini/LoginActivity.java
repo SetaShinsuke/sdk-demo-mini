@@ -38,18 +38,15 @@ public class LoginActivity extends BaseActivity {
             }
         });
         String userId = FacehubApi.getApi().getUser().getUserId();
-        if (userId != null && !userId.equals("")) {
-//            Intent intent  = new Intent(context,MainActivity.class);
-//            context.startActivity(intent);
-//            finish();
-            loginBtn1.setVisibility(View.GONE);
-            loginBtn2.setVisibility(View.GONE);
-            jumpBtn.setVisibility(View.VISIBLE);
-        }else {
-            loginBtn1.setVisibility(View.VISIBLE);
-            loginBtn2.setVisibility(View.VISIBLE);
-            jumpBtn.setVisibility(View.GONE);
-        }
+//        if (userId != null && !userId.equals("")) {
+//            loginBtn1.setVisibility(View.GONE);
+//            loginBtn2.setVisibility(View.GONE);
+//            jumpBtn.setVisibility(View.VISIBLE);
+//        }else {
+//            loginBtn1.setVisibility(View.VISIBLE);
+//            loginBtn2.setVisibility(View.VISIBLE);
+//            jumpBtn.setVisibility(View.GONE);
+//        }
     }
 
     public void onLoginClick(View view){
