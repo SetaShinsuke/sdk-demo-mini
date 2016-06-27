@@ -3,10 +3,9 @@ package com.azusasoft.sdkdemomini;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
 import com.azusasoft.facehubcloudsdk.activities.BaseActivity;
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
@@ -21,14 +20,15 @@ import com.azusasoft.sdkdemomini.framework.BaseApplication;
 public class LoginActivity extends BaseActivity {
     private Context context;
     private View progressBar;
-    private View loginBtn,jumpBtn;
+    private View loginBtn1,loginBtn2,jumpBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.context = this;
-        loginBtn = findViewById(R.id.login);
+        loginBtn1 = findViewById(R.id.login1);
+        loginBtn2 = findViewById(R.id.login2);
         jumpBtn  = findViewById(R.id.jump);
 
         progressBar = findViewById(R.id.progress_bar);
@@ -38,22 +38,24 @@ public class LoginActivity extends BaseActivity {
                 return true;
             }
         });
-        String userId = FacehubApi.getApi().getUser().getUserId();
-        if (userId != null && !userId.equals("")) {
-//            Intent intent  = new Intent(context,MainActivity.class);
-//            context.startActivity(intent);
-//            finish();
-            loginBtn.setVisibility(View.GONE);
-            jumpBtn.setVisibility(View.VISIBLE);
-        }else {
-            loginBtn.setVisibility(View.VISIBLE);
-            jumpBtn.setVisibility(View.GONE);
-        }
+//        String userId = FacehubApi.getApi().getUser().getUserId();
+//        if (userId != null && !userId.equals("")) {
+//            loginBtn1.setVisibility(View.GONE);
+//            loginBtn2.setVisibility(View.GONE);
+//            jumpBtn.setVisibility(View.VISIBLE);
+//        }else {
+//            loginBtn1.setVisibility(View.VISIBLE);
+//            loginBtn2.setVisibility(View.VISIBLE);
+//            jumpBtn.setVisibility(View.GONE);
+//        }
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void onLoginClick(View view){
         switch (view.getId()){
-            case R.id.login:
+            case R.id.login1:
                 progressBar.setVisibility(View.VISIBLE);
                 FacehubApi.getApi().login(BaseApplication.USER_ID, BaseApplication.AUTH_TOKEN, new ResultHandlerInterface() {
                     @Override
@@ -67,6 +69,39 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onError(Exception e) {
                         progressBar.setVisibility(View.GONE);
+                        Toast.makeText(context,"登录失败!",Toast.LENGTH_SHORT).show();
+                        Intent intent  = new Intent(context,MainActivity.class);
+                        context.startActivity(intent);
+                        finish();
+                    }
+                }, new ProgressInterface() {
+                    @Override
+                    public void onProgress(double v) {
+                        LogX.fastLog("登录中..." + v);
+                    }
+                });
+                break;
+
+            case R.id.login2:
+                progressBar.setVisibility(View.VISIBLE);
+                FacehubApi.getApi().login("73be42c0-af9d-42fc-916d-bf6588559d8f"
+                        , "6a5033e05e0339849130d5780b461839"
+                        , new ResultHandlerInterface() {
+                    @Override
+                    public void onResponse(Object o) {
+                        progressBar.setVisibility(View.GONE);
+                        Intent intent  = new Intent(context,MainActivity.class);
+                        context.startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(context,"登录失败!",Toast.LENGTH_SHORT).show();
+                        Intent intent  = new Intent(context,MainActivity.class);
+                        context.startActivity(intent);
+                        finish();
                     }
                 }, new ProgressInterface() {
                     @Override

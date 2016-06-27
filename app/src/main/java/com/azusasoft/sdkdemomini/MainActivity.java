@@ -1,7 +1,6 @@
 package com.azusasoft.sdkdemomini;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.widget.Toast;
 
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.LocalEmoPackageParseException;
+import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
 import com.azusasoft.facehubcloudsdk.api.models.Emoticon;
 import com.azusasoft.facehubcloudsdk.api.models.Image;
@@ -20,6 +20,7 @@ import com.azusasoft.facehubcloudsdk.views.EmoticonSendListener;
 import com.azusasoft.facehubcloudsdk.views.OnDeleteListener;
 import com.azusasoft.facehubcloudsdk.views.viewUtils.GifViewFC;
 import com.azusasoft.sdkdemomini.views.FindEmoticonDialog;
+import com.azusasoft.sdkdemomini.framework.BaseApplication;
 
 //import com.azusasoft.facehubcloudsdk.activities.ListsManageActivityNew;
 
@@ -168,7 +169,7 @@ public class MainActivity extends FragmentActivity {
 //                break;
             case R.id.show_keyboard:
                 userId = FacehubApi.getApi().getUser().getUserId();
-                if (userId == null || userId.equals("")) {
+                if (!isLogin(userId)) {
                     showToast("请先登录!", true);
                     return;
                 }
@@ -177,7 +178,7 @@ public class MainActivity extends FragmentActivity {
                 break;
             case R.id.hide_keyboard:
                 userId = FacehubApi.getApi().getUser().getUserId();
-                if (userId == null || userId.equals("")) {
+                if (!isLogin(userId)) {
                     showToast("请先登录!", true);
                     return;
                 }
@@ -187,18 +188,14 @@ public class MainActivity extends FragmentActivity {
             case R.id.logout:
                 Log.v(Constants.TAG, "退出登录");
                 userId = FacehubApi.getApi().getUser().getUserId();
-                if (userId == null || userId.equals("")) {
+                if (!isLogin(userId)) {
                     showToast("请先登录!", true);
                     return;
                 }
                 FacehubApi.getApi().logout();
-                emoticonKeyboardView.hide();
-                emoticonKeyboardView.refresh();
+                FacehubApi.getApi().exitViews();
                 textView.setText("已退出.");
                 showToast("退出成功!", true);
-                Intent intent = new Intent(context, LoginActivity.class);
-                context.startActivity(intent);
-                finish();
                 break;
             case R.id.find:
 //                String keyword = "0";
@@ -235,6 +232,57 @@ public class MainActivity extends FragmentActivity {
                 dialog.show(getSupportFragmentManager(),"find");
                 break;
         }
+    }
+
+    public void onLoginClick(View view) {
+        switch (view.getId()) {
+            case R.id.login1:
+                FacehubApi.getApi().login(BaseApplication.USER_ID, BaseApplication.AUTH_TOKEN, new ResultHandlerInterface() {
+                    @Override
+                    public void onResponse(Object o) {
+                        textView.setText("登录成功!");
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        textView.setText("登录失败!");
+                        Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
+                    }
+                }, new ProgressInterface() {
+                    @Override
+                    public void onProgress(double v) {
+                        LogX.fastLog("登录中..." + v);
+                    }
+                });
+                break;
+
+            case R.id.login2:
+                FacehubApi.getApi().login("73be42c0-af9d-42fc-916d-bf6588559d8f"
+                        , "6a5033e05e0339849130d5780b461839"
+                        , new ResultHandlerInterface() {
+                            @Override
+                            public void onResponse(Object o) {
+                                textView.setText("登录成功!");
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                textView.setText("登录失败!");
+                                Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new ProgressInterface() {
+                            @Override
+                            public void onProgress(double v) {
+                                LogX.fastLog("登录中..." + v);
+                            }
+                        });
+                break;
+        }
+    }
+
+    private boolean isLogin(String userId){
+        return true;
+//        return userId == null || userId.equals("");
     }
 
     private void showToast(CharSequence content, boolean isLong) {

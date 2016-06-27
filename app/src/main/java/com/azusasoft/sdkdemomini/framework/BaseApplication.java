@@ -2,6 +2,7 @@ package com.azusasoft.sdkdemomini.framework;
 import android.app.Application;
 
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
+import com.azusasoft.facehubcloudsdk.api.utils.LogX;
 
 /**
  * Created by SETA on 2016/5/19.
@@ -35,7 +36,19 @@ public class BaseApplication extends Application {
 //        FacehubApi.getApi().setThemeColor("#f33847");
         FacehubApi.getApi().setThemeColor("#3f51b5");
         //4.设置商店页面标题文字
-        FacehubApi.getApi().setEmoStoreTitle("事例标题");
+        FacehubApi.getApi().setEmoStoreTitle("示例标题");
 
+        initUncaughtExceptionHandler();
+    }
+
+    private void initUncaughtExceptionHandler(){
+        final Thread.UncaughtExceptionHandler defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable ex) {
+                LogX.e("发生崩溃 : " + ex);
+                defaultHandler.uncaughtException(thread,ex);
+            }
+        };
     }
 }
