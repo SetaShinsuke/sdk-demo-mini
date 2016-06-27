@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.azusasoft.facehubcloudsdk.activities.BaseActivity;
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
@@ -37,7 +38,7 @@ public class LoginActivity extends BaseActivity {
                 return true;
             }
         });
-        String userId = FacehubApi.getApi().getUser().getUserId();
+//        String userId = FacehubApi.getApi().getUser().getUserId();
 //        if (userId != null && !userId.equals("")) {
 //            loginBtn1.setVisibility(View.GONE);
 //            loginBtn2.setVisibility(View.GONE);
@@ -47,6 +48,9 @@ public class LoginActivity extends BaseActivity {
 //            loginBtn2.setVisibility(View.VISIBLE);
 //            jumpBtn.setVisibility(View.GONE);
 //        }
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void onLoginClick(View view){
@@ -65,6 +69,10 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onError(Exception e) {
                         progressBar.setVisibility(View.GONE);
+                        Toast.makeText(context,"登录失败!",Toast.LENGTH_SHORT).show();
+                        Intent intent  = new Intent(context,MainActivity.class);
+                        context.startActivity(intent);
+                        finish();
                     }
                 }, new ProgressInterface() {
                     @Override
@@ -90,6 +98,10 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onError(Exception e) {
                         progressBar.setVisibility(View.GONE);
+                        Toast.makeText(context,"登录失败!",Toast.LENGTH_SHORT).show();
+                        Intent intent  = new Intent(context,MainActivity.class);
+                        context.startActivity(intent);
+                        finish();
                     }
                 }, new ProgressInterface() {
                     @Override

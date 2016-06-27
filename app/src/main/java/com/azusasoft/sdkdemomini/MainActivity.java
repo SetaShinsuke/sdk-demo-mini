@@ -1,7 +1,6 @@
 package com.azusasoft.sdkdemomini;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -132,32 +131,32 @@ public class MainActivity extends FragmentActivity {
                 Log.d(Constants.TAG , "str : " + str.charAt(2));
                 break;
 
-            case R.id.login:
-                s = "登录中...";
-                progressBar.setVisibility(View.VISIBLE);
-                FacehubApi.getApi().login(BaseApplication.USER_ID, BaseApplication.AUTH_TOKEN, new ResultHandlerInterface() {
-                    @Override
-                    public void onResponse(Object o) {
-                        textView.setText("登录成功!");
-                        showToast("登录成功", true);
-                        emoticonKeyboardView.refresh();
-                        progressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        textView.setText("登录失败!\n" + e);
-                        showToast("登录失败", true);
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }, new ProgressInterface() {
-                    @Override
-                    public void onProgress(double v) {
-                        LogX.fastLog("登录中..." + v);
-                        textView.setText("登录中..." + v + "%");
-                    }
-                });
-                break;
+//            case R.id.login:
+//                s = "登录中...";
+//                progressBar.setVisibility(View.VISIBLE);
+//                FacehubApi.getApi().login(BaseApplication.USER_ID, BaseApplication.AUTH_TOKEN, new ResultHandlerInterface() {
+//                    @Override
+//                    public void onResponse(Object o) {
+//                        textView.setText("登录成功!");
+//                        showToast("登录成功", true);
+//                        emoticonKeyboardView.refresh();
+//                        progressBar.setVisibility(View.GONE);
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        textView.setText("登录失败!\n" + e);
+//                        showToast("登录失败", true);
+//                        progressBar.setVisibility(View.GONE);
+//                    }
+//                }, new ProgressInterface() {
+//                    @Override
+//                    public void onProgress(double v) {
+//                        LogX.fastLog("登录中..." + v);
+//                        textView.setText("登录中..." + v + "%");
+//                    }
+//                });
+//                break;
             case R.id.show_keyboard:
                 userId = FacehubApi.getApi().getUser().getUserId();
                 if (!isLogin(userId)) {
@@ -184,13 +183,9 @@ public class MainActivity extends FragmentActivity {
                     return;
                 }
                 FacehubApi.getApi().logout();
-                emoticonKeyboardView.hide();
-                emoticonKeyboardView.refresh();
+                FacehubApi.getApi().exitViews();
                 textView.setText("已退出.");
                 showToast("退出成功!", true);
-                Intent intent = new Intent(context,LoginActivity.class);
-                context.startActivity(intent);
-                finish();
                 break;
             case R.id.find:
 //                String keyword = "0";
@@ -198,6 +193,52 @@ public class MainActivity extends FragmentActivity {
 //                Emoticon emoticon = FacehubApi.getApi().findEmoticonByDescription(keyword);
 //                textView.setText("查找表情 【"+keyword +"】 result : " + emoticon);
 //                FacehubApi.getDbHelper().export();
+                break;
+        }
+    }
+
+    public void onLoginClick(View view) {
+        switch (view.getId()) {
+            case R.id.login1:
+                FacehubApi.getApi().login(BaseApplication.USER_ID, BaseApplication.AUTH_TOKEN, new ResultHandlerInterface() {
+                    @Override
+                    public void onResponse(Object o) {
+                        textView.setText("登录成功!");
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        textView.setText("登录失败!");
+                        Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
+                    }
+                }, new ProgressInterface() {
+                    @Override
+                    public void onProgress(double v) {
+                        LogX.fastLog("登录中..." + v);
+                    }
+                });
+                break;
+
+            case R.id.login2:
+                FacehubApi.getApi().login("73be42c0-af9d-42fc-916d-bf6588559d8f"
+                        , "6a5033e05e0339849130d5780b461839"
+                        , new ResultHandlerInterface() {
+                            @Override
+                            public void onResponse(Object o) {
+                                textView.setText("登录成功!");
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                textView.setText("登录失败!");
+                                Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new ProgressInterface() {
+                            @Override
+                            public void onProgress(double v) {
+                                LogX.fastLog("登录中..." + v);
+                            }
+                        });
                 break;
         }
     }
@@ -223,8 +264,8 @@ public class MainActivity extends FragmentActivity {
             emoticonKeyboardView.hide();
             return;
         }
-//        super.onBackPressed();
-        Intent intent = new Intent(this,LoginActivity.class);
-        startActivity(intent);
+        super.onBackPressed();
+//        Intent intent = new Intent(this,LoginActivity.class);
+//        startActivity(intent);
     }
 }

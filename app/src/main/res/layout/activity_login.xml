@@ -15,10 +15,11 @@
             android:layout_margin="8dp"
             android:padding="12dp"
             android:textColor="@android:color/white"
-            android:text="登录1"
+            android:text="登录-账号1"
             android:gravity="center"
             android:textSize="13sp"
             android:onClick="onLoginClick"
+            android:visibility="gone"
             />
 
         <Button
@@ -29,10 +30,11 @@
             android:layout_margin="8dp"
             android:padding="12dp"
             android:textColor="@android:color/white"
-            android:text="登录2"
+            android:text="登录-账号2"
             android:gravity="center"
             android:textSize="13sp"
             android:onClick="onLoginClick"
+            android:visibility="gone"
             />
 
         <Button
