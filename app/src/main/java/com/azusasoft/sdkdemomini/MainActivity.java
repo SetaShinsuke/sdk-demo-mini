@@ -22,6 +22,8 @@ import com.azusasoft.facehubcloudsdk.views.viewUtils.GifViewFC;
 import com.azusasoft.sdkdemomini.views.FindEmoticonDialog;
 import com.azusasoft.sdkdemomini.framework.BaseApplication;
 
+import java.util.HashMap;
+
 //import com.azusasoft.facehubcloudsdk.activities.ListsManageActivityNew;
 
 public class MainActivity extends FragmentActivity {
@@ -134,7 +136,7 @@ public class MainActivity extends FragmentActivity {
 
     public void onClick(View view) {
         String s = "";
-        String userId;
+        final String userId;
         switch (view.getId()) {
             case R.id.crash:
                 String str = "a";
@@ -231,6 +233,27 @@ public class MainActivity extends FragmentActivity {
                 });
                 dialog.show(getSupportFragmentManager(),"find");
                 break;
+
+            case R.id.register:
+                FacehubApi.getApi().registerUser("7d0e4978b9ebd66d6ff8fd43f4dbb513"
+                        , "NjROt1d782bDGmI0D3ppnkn1mH4=\n"
+                        , 2413198604L, new ResultHandlerInterface() {
+                    @Override
+                    public void onResponse(Object response) {
+                        HashMap<String,String> userData = (HashMap<String,String>)response;
+                        String id = userData.get("user_id");
+                        String token = userData.get("auth_token");
+                        String content = "注册用户成功!\nId : " + id + "\nToken : " + token;
+                        LogX.d(content);
+                        textView.setText(content);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        LogX.e("注册用户出错 : " + e);
+                    }
+                });
+                break;
         }
     }
 
@@ -257,8 +280,8 @@ public class MainActivity extends FragmentActivity {
                 break;
 
             case R.id.login2:
-                FacehubApi.getApi().login("73be42c0-af9d-42fc-916d-bf6588559d8f"
-                        , "6a5033e05e0339849130d5780b461839"
+                FacehubApi.getApi().login(BaseApplication.USER_ID_2
+                        , BaseApplication.AUTH_TOKEN_2
                         , new ResultHandlerInterface() {
                             @Override
                             public void onResponse(Object o) {

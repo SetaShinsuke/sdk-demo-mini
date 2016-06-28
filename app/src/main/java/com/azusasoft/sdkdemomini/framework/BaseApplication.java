@@ -15,6 +15,12 @@ public class BaseApplication extends Application {
     public static String USER_ID = "e214881f-98e2-4a85-9de6-037e724a6100";
     public static String AUTH_TOKEN = "953dca8a34bfef614237dcda5061f839";
 
+//    public static String USER_ID_2 = "73be42c0-af9d-42fc-916d-bf6588559d8f";
+//    public static String AUTH_TOKEN_2 = "6a5033e05e0339849130d5780b461839";
+
+    public static String USER_ID_2 = "530d41e7-e555-4c4b-8184-8f5bebe4d00d";
+    public static String AUTH_TOKEN_2 = "a9568429b1ba4170480e070122ed380f";
+
     //内测
 //    public static String USER_ID = "530d41e7-e555-4c4b-8184-8f5bebe4d00d";
 //    public static String AUTH_TOKEN = "a9568429b1ba4170480e070122ed380f";
