@@ -40,9 +40,12 @@ public class BaseApplication extends Application {
         Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread thread, Throwable ex) {
-                LogX.e("发生崩溃 : " + ex);
+                LogX.e("#############################################################\n"
+                        + "发生崩溃 : " + ex
+                        +"\n#############################################################");
                 defaultHandler.uncaughtException(thread,ex);
             }
         };
+        Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 }
