@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/SDKdemoMini.iml" filepath="$PROJECT_DIR$/SDKdemoMini.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/../FacehubCloudSDK/facehubSDKLib/facehubSDKLib.iml" filepath="$PROJECT_DIR$/../FacehubCloudSDK/facehubSDKLib/facehubSDKLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../FacehubCloudSDK/facehubSDKLib/facehubSDKLib.iml" filepath="$PROJECT_DIR$/../FacehubCloudSDK/facehubSDKLib/facehubSDKLib.iml" />
     </modules>
   </component>
 </project>

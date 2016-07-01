@@ -9,18 +9,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
-import com.azusasoft.facehubcloudsdk.api.LocalEmoPackageParseException;
 import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
 import com.azusasoft.facehubcloudsdk.api.models.Emoticon;
-import com.azusasoft.facehubcloudsdk.api.models.Image;
 import com.azusasoft.facehubcloudsdk.api.utils.LogX;
 import com.azusasoft.facehubcloudsdk.views.EmoticonKeyboardView;
 import com.azusasoft.facehubcloudsdk.views.EmoticonSendListener;
 import com.azusasoft.facehubcloudsdk.views.OnDeleteListener;
 import com.azusasoft.facehubcloudsdk.views.viewUtils.GifViewFC;
-import com.azusasoft.sdkdemomini.views.FindEmoticonDialog;
 import com.azusasoft.sdkdemomini.framework.BaseApplication;
+import com.azusasoft.sdkdemomini.views.FindEmoticonDialog;
 
 import java.util.HashMap;
 
@@ -33,6 +31,7 @@ public class MainActivity extends FragmentActivity {
     private EmoticonKeyboardView emoticonKeyboardView;
     private View progressBar,relateEmoContainer;
     private Toast toast;
+    private String currentEmoId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,21 +64,21 @@ public class MainActivity extends FragmentActivity {
         });
 //        emoticonKeyboardView.initKeyboard(false,null,null);
 
-        /**
-         * 二、
-         * 配置本地预置表情
-         * 参数说明 : {@link EmoticonKeyboardView#loadEmoticonFromLocal(int, String, boolean)}
-         *                      1.配置文件版本号;
-         *                      2.配置文件，在assets文件夹内的具体路径;
-         *                      3.是否允许图文混排，若设置为true,则在显示本地预置表情时，显示键盘内的【删除按钮】和【发送按钮】;
-         *                      4.抛出异常 : {@link LocalEmoPackageParseException} 配置JSON解析出错时抛出异常;
-         */
-        try {
-            emoticonKeyboardView.loadEmoticonFromLocal(1, "emoticonDescription.json", true);
-        } catch (LocalEmoPackageParseException e) {
-            Log.e(Constants.TAG, "解析预置表情 配置Json出错 : " + e);
-            e.printStackTrace();
-        }
+//        /**
+//         * 二、
+//         * 配置本地预置表情
+//         * 参数说明 : {@link EmoticonKeyboardView#loadEmoticonFromLocal(int, String, boolean)}
+//         *                      1.配置文件版本号;
+//         *                      2.配置文件，在assets文件夹内的具体路径;
+//         *                      3.是否允许图文混排，若设置为true,则在显示本地预置表情时，显示键盘内的【删除按钮】和【发送按钮】;
+//         *                      4.抛出异常 : {@link LocalEmoPackageParseException} 配置JSON解析出错时抛出异常;
+//         */
+//        try {
+//            emoticonKeyboardView.loadEmoticonFromLocal(1, "emoticonDescription.json", true);
+//        } catch (LocalEmoPackageParseException e) {
+//            Log.e(Constants.TAG, "解析预置表情 配置Json出错 : " + e);
+//            e.printStackTrace();
+//        }
 
         /**
          * 三、
@@ -108,12 +107,14 @@ public class MainActivity extends FragmentActivity {
          * 五、
          * 点击表情后的回调
          * 可根据 {@link Emoticon#isLocal()} 来区分是否是预存的表情
-         * 可根据{@link Emoticon#getFilePath(Image.Size)} 来拿取表情文件的路径
+         * 可根据{@link Emoticon#getFullPath()} 来拿取表情文件的路径
+         *      根据{@link Emoticon#getThumbPath()} 来拿取表情缩略图路径
          *      注意! : 如果是本地表情，则返回其在assets的路径,如"emoji/emoji_id_1.png",因此其实际路径应为 "assets://emoji/emoji_id_1.png"
          */
         emoticonKeyboardView.setEmoticonSendListener(new EmoticonSendListener() {
             @Override
             public void onSend(Emoticon emoticon) {
+                currentEmoId = emoticon.getId();
                 if (emoticon.isLocal()) {
                     String s = "输入表情 : [" + emoticon.getDescription() + "]";
                     String content = s + "\n本地表情资源路径 : " + "assets://" + emoticon.getFullPath();
@@ -121,17 +122,48 @@ public class MainActivity extends FragmentActivity {
                     showToast(s, false);
                 } else {
                     String s = "发送表情 : [" + emoticon.getId() + "]";
-                    String content = s + "\n表情文件路径 : " + emoticon.getThumbPath();
+                    String content = s + "\n表情文件路径 : " + emoticon.getFullPath();
                     textView.setText(content);
                     showToast(s, false);
                 }
             }
         });
 
+        String id = "";
+        FacehubApi.getApi().getEmoticonById(id, new ResultHandlerInterface() {
+            @Override
+            public void onResponse(Object response) {
+
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
 
 
 //            Intent intent  = new Intent(context,EmoStoreActivity.class);
 //            context.startActivity(intent);
+    }
+
+    private void testGetEmoById(){
+        if(currentEmoId!=null){
+            FacehubApi.getApi().getEmoticonById(currentEmoId, new ResultHandlerInterface() {
+                @Override
+                public void onResponse(Object response) {
+                    Emoticon emoticon = (Emoticon)response;
+                    String content = "获取到表情["+emoticon.getId()+"]\npath : "+emoticon.getFullPath();
+                    textView.setText(content);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    String content = "获取表情["+currentEmoId+"失败！: " + e;
+                    textView.setText(content);
+                }
+            });
+        }
     }
 
     public void onClick(View view) {
@@ -253,6 +285,10 @@ public class MainActivity extends FragmentActivity {
                         LogX.e("注册用户出错 : " + e);
                     }
                 });
+                break;
+
+            case R.id.test_get_by_id:
+                testGetEmoById();
                 break;
         }
     }

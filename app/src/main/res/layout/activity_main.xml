@@ -96,13 +96,23 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/test_get_by_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="#555555"
+                    android:onClick="onClick"
+                    android:text="根据id获取表情"
+                    android:textSize="13sp"
+                    android:visibility="visible" />
+                <Button
                     android:id="@+id/find"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:background="#555555"
                     android:onClick="onClick"
-                    android:text="查找表情"
+                    android:text="联想表情"
                     android:textSize="13sp"
                     android:visibility="visible" />
 
