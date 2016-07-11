@@ -129,20 +129,6 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        String id = "";
-        FacehubApi.getApi().getEmoticonById(id, new ResultHandlerInterface() {
-            @Override
-            public void onResponse(Object response) {
-
-            }
-
-            @Override
-            public void onError(Exception e) {
-
-            }
-        });
-
-
 //            Intent intent  = new Intent(context,EmoStoreActivity.class);
 //            context.startActivity(intent);
     }
