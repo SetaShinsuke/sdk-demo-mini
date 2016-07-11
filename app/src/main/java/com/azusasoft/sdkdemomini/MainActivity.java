@@ -1,6 +1,7 @@
 package com.azusasoft.sdkdemomini;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.azusasoft.facehubcloudsdk.activities.SearchActivity;
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
@@ -29,7 +31,7 @@ public class MainActivity extends FragmentActivity {
     private TextView textView;
     private Context context;
     private EmoticonKeyboardView emoticonKeyboardView;
-    private View progressBar,relateEmoContainer;
+    private View progressBar, relateEmoContainer;
     private Toast toast;
     private String currentEmoId;
 
@@ -129,37 +131,23 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        String id = "";
-        FacehubApi.getApi().getEmoticonById(id, new ResultHandlerInterface() {
-            @Override
-            public void onResponse(Object response) {
-
-            }
-
-            @Override
-            public void onError(Exception e) {
-
-            }
-        });
-
-
-//            Intent intent  = new Intent(context,EmoStoreActivity.class);
-//            context.startActivity(intent);
+        Intent intent = new Intent(context, SearchActivity.class);
+        context.startActivity(intent);
     }
 
-    private void testGetEmoById(){
-        if(currentEmoId!=null){
+    private void testGetEmoById() {
+        if (currentEmoId != null) {
             FacehubApi.getApi().getEmoticonById(currentEmoId, new ResultHandlerInterface() {
                 @Override
                 public void onResponse(Object response) {
-                    Emoticon emoticon = (Emoticon)response;
-                    String content = "获取到表情["+emoticon.getId()+"]\npath : "+emoticon.getFullPath();
+                    Emoticon emoticon = (Emoticon) response;
+                    String content = "获取到表情[" + emoticon.getId() + "]\npath : " + emoticon.getFullPath();
                     textView.setText(content);
                 }
 
                 @Override
                 public void onError(Exception e) {
-                    String content = "获取表情["+currentEmoId+"失败！: " + e;
+                    String content = "获取表情[" + currentEmoId + "失败！: " + e;
                     textView.setText(content);
                 }
             });
@@ -245,7 +233,7 @@ public class MainActivity extends FragmentActivity {
                         textView.setText("查找表情 【" + keyword + "】");
                         Emoticon emoticon = FacehubApi.getApi().findEmoticonByDescription(keyword);
                         textView.setText("查找表情 【" + keyword + "】 result : " + emoticon);
-                        if(emoticon!=null){
+                        if (emoticon != null) {
                             relateEmoContainer.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -260,31 +248,31 @@ public class MainActivity extends FragmentActivity {
 
                     @Override
                     public void onError(Exception e) {
-                        showToast(e+"",true);
+                        showToast(e + "", true);
                     }
                 });
-                dialog.show(getSupportFragmentManager(),"find");
+                dialog.show(getSupportFragmentManager(), "find");
                 break;
 
             case R.id.register:
                 FacehubApi.getApi().registerUser("7d0e4978b9ebd66d6ff8fd43f4dbb513"
                         , "NjROt1d782bDGmI0D3ppnkn1mH4=\n"
                         , 2413198604L, new ResultHandlerInterface() {
-                    @Override
-                    public void onResponse(Object response) {
-                        HashMap<String,String> userData = (HashMap<String,String>)response;
-                        String id = userData.get("user_id");
-                        String token = userData.get("auth_token");
-                        String content = "注册用户成功!\nId : " + id + "\nToken : " + token;
-                        LogX.d(content);
-                        textView.setText(content);
-                    }
+                            @Override
+                            public void onResponse(Object response) {
+                                HashMap<String, String> userData = (HashMap<String, String>) response;
+                                String id = userData.get("user_id");
+                                String token = userData.get("auth_token");
+                                String content = "注册用户成功!\nId : " + id + "\nToken : " + token;
+                                LogX.d(content);
+                                textView.setText(content);
+                            }
 
-                    @Override
-                    public void onError(Exception e) {
-                        LogX.e("注册用户出错 : " + e);
-                    }
-                });
+                            @Override
+                            public void onError(Exception e) {
+                                LogX.e("注册用户出错 : " + e);
+                            }
+                        });
                 break;
 
             case R.id.test_get_by_id:
@@ -339,7 +327,7 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    private boolean isLogin(String userId){
+    private boolean isLogin(String userId) {
         return true;
 //        return userId == null || userId.equals("");
     }
