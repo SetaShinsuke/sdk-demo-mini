@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.azusasoft.facehubcloudsdk.activities.SearchActivity;
+import com.azusasoft.facehubcloudsdk.activities.EmoStoreActivity;
+import com.azusasoft.facehubcloudsdk.activities.EmoStoreActivityWC;
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
@@ -131,8 +132,11 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        Intent intent = new Intent(context, SearchActivity.class);
-        context.startActivity(intent);
+//        Intent intent = new Intent(context, SearchActivity.class);
+//        context.startActivity(intent);
+
+//            Intent intent  = new Intent(context,EmoStoreActivity.class);
+//            context.startActivity(intent);
     }
 
     private void testGetEmoById() {
@@ -277,6 +281,15 @@ public class MainActivity extends FragmentActivity {
 
             case R.id.test_get_by_id:
                 testGetEmoById();
+                break;
+
+            case R.id.store0:
+                Intent intent0  = new Intent(context,EmoStoreActivity.class);
+                context.startActivity(intent0);
+                break;
+            case R.id.store1:
+                Intent intent1  = new Intent(context,EmoStoreActivityWC.class);
+                context.startActivity(intent1);
                 break;
         }
     }
