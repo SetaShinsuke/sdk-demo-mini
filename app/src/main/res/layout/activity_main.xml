@@ -145,8 +145,7 @@
                     android:background="#555555"
                     android:onClick="onClick"
                     android:text="商店-默认"
-                    android:textSize="13sp"
-                    android:visibility="gone" />
+                    android:textSize="13sp"/>
 
                 <Button
                     android:id="@+id/store1"
