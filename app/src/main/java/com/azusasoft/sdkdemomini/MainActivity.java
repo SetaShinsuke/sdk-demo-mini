@@ -1,6 +1,7 @@
 package com.azusasoft.sdkdemomini;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.azusasoft.facehubcloudsdk.activities.EmoStoreActivity;
+import com.azusasoft.facehubcloudsdk.activities.EmoStoreActivityWC;
 import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
@@ -275,6 +278,15 @@ public class MainActivity extends FragmentActivity {
 
             case R.id.test_get_by_id:
                 testGetEmoById();
+                break;
+
+            case R.id.store0:
+                Intent intent0  = new Intent(context,EmoStoreActivity.class);
+                context.startActivity(intent0);
+                break;
+            case R.id.store1:
+                Intent intent1  = new Intent(context,EmoStoreActivityWC.class);
+                context.startActivity(intent1);
                 break;
         }
     }

@@ -42,20 +42,23 @@ public class BaseApplication extends Application {
         FacehubApi.initViews(getApplicationContext());
         //2.设置接入应用id
         FacehubApi.getApi().setAppId(APP_ID);
+
+        FacehubApi.getApi().setViewStyle(1);
         //3.设置主色调 (示例:蓝色)
 //        FacehubApi.getApi().setThemeColor("#f33847");
         FacehubApi.getApi().setThemeColor("#3f51b5");
+        FacehubApi.getApi().setActionBarColorString("#393a3e");
         //4.设置商店页面标题文字
         FacehubApi.getApi().setEmoStoreTitle("示例标题");
 
         /**
-         //         * 配置本地预置表情
-         //         * 参数说明 : {@link EmoticonKeyboardView#loadEmoticonFromLocal(int, String, boolean)}
-         //         *                      1.配置文件版本号;
-         //         *                      2.配置文件，在assets文件夹内的具体路径;
-         //         *                      3.是否允许图文混排，若设置为true,则在显示本地预置表情时，显示键盘内的【删除按钮】和【发送按钮】;
-         //         *                      4.抛出异常 : {@link LocalEmoPackageParseException} 配置JSON解析出错时抛出异常;
-         //         */
+         * 配置本地预置表情
+         * 参数说明 : {@link EmoticonKeyboardView#loadEmoticonFromLocal(int, String, boolean)}
+         *                      1.配置文件版本号;
+         *                      2.配置文件，在assets文件夹内的具体路径;
+         *                      3.是否允许图文混排，若设置为true,则在显示本地预置表情时，显示键盘内的【删除按钮】和【发送按钮】;
+         *                      4.抛出异常 : {@link LocalEmoPackageParseException} 配置JSON解析出错时抛出异常;
+         */
         try {
             FacehubApi.getApi().loadEmoticonFromLocal(1, "emoticonDescription.json", true);
         } catch (LocalEmoPackageParseException e) {
