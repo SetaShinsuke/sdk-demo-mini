@@ -46,10 +46,10 @@ public class BaseApplication extends Application {
         FacehubApi.getApi().setViewStyle(1);
         //3.设置主色调 (示例:蓝色)
 //        FacehubApi.getApi().setThemeColor("#f33847");
-        FacehubApi.getApi().setThemeColor("#3f51b5");
-        FacehubApi.getApi().setActionBarColorString("#393a3e");
+//        FacehubApi.getApi().setThemeColor("#3f51b5");
+        FacehubApi.getApi().setActionBarColor("#393a3e");
         //4.设置商店页面标题文字
-        FacehubApi.getApi().setEmoStoreTitle("示例标题");
+//        FacehubApi.getApi().setEmoStoreTitle("示例标题");
 
         /**
          * 配置本地预置表情
