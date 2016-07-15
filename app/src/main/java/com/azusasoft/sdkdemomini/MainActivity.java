@@ -256,9 +256,7 @@ public class MainActivity extends FragmentActivity {
                 break;
 
             case R.id.register:
-                FacehubApi.getApi().registerUser("7d0e4978b9ebd66d6ff8fd43f4dbb513"
-                        , "NjROt1d782bDGmI0D3ppnkn1mH4=\n"
-                        , 2413198604L, new ResultHandlerInterface() {
+                FacehubApi.getApi().registerUser(BaseApplication.ACCESS_KEY, BaseApplication.SIGN , BaseApplication.DEADLINE, new ResultHandlerInterface() {
                     @Override
                     public void onResponse(Object response) {
                         HashMap<String,String> userData = (HashMap<String,String>)response;
