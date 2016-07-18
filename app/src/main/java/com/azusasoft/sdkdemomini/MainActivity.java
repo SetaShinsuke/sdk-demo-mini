@@ -259,24 +259,22 @@ public class MainActivity extends FragmentActivity {
                 break;
 
             case R.id.register:
-                FacehubApi.getApi().registerUser("7d0e4978b9ebd66d6ff8fd43f4dbb513"
-                        , "NjROt1d782bDGmI0D3ppnkn1mH4=\n"
-                        , 2413198604L, new ResultHandlerInterface() {
-                            @Override
-                            public void onResponse(Object response) {
-                                HashMap<String, String> userData = (HashMap<String, String>) response;
-                                String id = userData.get("user_id");
-                                String token = userData.get("auth_token");
-                                String content = "注册用户成功!\nId : " + id + "\nToken : " + token;
-                                LogX.d(content);
-                                textView.setText(content);
-                            }
+                FacehubApi.getApi().registerUser(BaseApplication.ACCESS_KEY, BaseApplication.SIGN, BaseApplication.DEADLINE, new ResultHandlerInterface() {
+                    @Override
+                    public void onResponse(Object response) {
+                        HashMap<String, String> userData = (HashMap<String, String>) response;
+                        String id = userData.get("user_id");
+                        String token = userData.get("auth_token");
+                        String content = "注册用户成功!\nId : " + id + "\nToken : " + token;
+                        LogX.d(content);
+                        textView.setText(content);
+                    }
 
-                            @Override
-                            public void onError(Exception e) {
-                                LogX.e("注册用户出错 : " + e);
-                            }
-                        });
+                    @Override
+                    public void onError(Exception e) {
+                        LogX.e("注册用户出错 : " + e);
+                    }
+                });
                 break;
 
             case R.id.test_get_by_id:
@@ -284,11 +282,11 @@ public class MainActivity extends FragmentActivity {
                 break;
 
             case R.id.store0:
-                Intent intent0  = new Intent(context,EmoStoreActivity.class);
+                Intent intent0 = new Intent(context, EmoStoreActivity.class);
                 context.startActivity(intent0);
                 break;
             case R.id.store1:
-                Intent intent1  = new Intent(context,EmoStoreActivityWC.class);
+                Intent intent1 = new Intent(context, EmoStoreActivityWC.class);
                 context.startActivity(intent1);
                 break;
         }
