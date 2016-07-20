@@ -67,24 +67,8 @@ public class MainActivity extends FragmentActivity {
         });
 //        emoticonKeyboardView.initKeyboard(false,null,null);
 
-//        /**
-//         * 二、
-//         * 配置本地预置表情
-//         * 参数说明 : {@link EmoticonKeyboardView#loadEmoticonFromLocal(int, String, boolean)}
-//         *                      1.配置文件版本号;
-//         *                      2.配置文件，在assets文件夹内的具体路径;
-//         *                      3.是否允许图文混排，若设置为true,则在显示本地预置表情时，显示键盘内的【删除按钮】和【发送按钮】;
-//         *                      4.抛出异常 : {@link LocalEmoPackageParseException} 配置JSON解析出错时抛出异常;
-//         */
-//        try {
-//            emoticonKeyboardView.loadEmoticonFromLocal(1, "emoticonDescription.json", true);
-//        } catch (LocalEmoPackageParseException e) {
-//            Log.e(Constants.TAG, "解析预置表情 配置Json出错 : " + e);
-//            e.printStackTrace();
-//        }
-
         /**
-         * 三、
+         * 二、
          * 点击键盘内删除按钮的回调;
          * 如果允许图文混排，请设置此回调
          */
@@ -99,7 +83,7 @@ public class MainActivity extends FragmentActivity {
 
 
         /**
-         * 四、
+         * 三、
          * 设置发送按钮是否可用
          * 如果【允许图文混排】，请根据输入框的内容设置【发送按钮】的状态
          * 调用{@link EmoticonKeyboardView#setSendButtonEnabled(boolean)} ;
@@ -131,6 +115,7 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
+
 
 //            Intent intent  = new Intent(context,EmoStoreActivity.class);
 //            context.startActivity(intent);
