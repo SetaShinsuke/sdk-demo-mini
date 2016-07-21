@@ -13,9 +13,9 @@ import com.azusasoft.sdkdemomini.Constants;
  * 应用入口
  */
 public class BaseApplication extends Application {
-//    private final String APP_ID = "65737441-7070-6c69-6361-74696f6e4944";
+    private final String APP_ID = "65737441-7070-6c69-6361-74696f6e4944";
     //仿微信
-    private final String APP_ID = "94f4d7a5-b716-48ae-a3d0-b64be1a037e7";
+//    private final String APP_ID = "94f4d7a5-b716-48ae-a3d0-b64be1a037e7";
 
     //默认
 //    public static final String ACCESS_KEY = "7d0e4978b9ebd66d6ff8fd43f4dbb513";
@@ -46,13 +46,13 @@ public class BaseApplication extends Application {
 //    public static String AUTH_TOKEN = "02db12b9350f7dceb158995c01e21a2a";
 
     //测服
-//    public static String USER_ID = "c819eaaa-31a2-4d37-8e2d-8b76c2d58aca";
-//    public static String AUTH_TOKEN = "5d868255d2c08ebbdc0656dcdb560674";
+    public static String USER_ID = "c819eaaa-31a2-4d37-8e2d-8b76c2d58aca";
+    public static String AUTH_TOKEN = "5d868255d2c08ebbdc0656dcdb560674";
 
 
     //仿微信
-    public static String USER_ID = "89c5a668-fae4-440e-b79b-77cfb6613fb7";
-    public static String AUTH_TOKEN = "6d6a2d47f2e9bea25481b119ef400afc";
+//    public static String USER_ID = "89c5a668-fae4-440e-b79b-77cfb6613fb7";
+//    public static String AUTH_TOKEN = "6d6a2d47f2e9bea25481b119ef400afc";
 
     public static String USER_ID_2 = "06b6b925-7d5f-4662-83b6-ddd4a2dabf21";
     public static String AUTH_TOKEN_2 = "2389d355ebf00b051d20d63f53fcf957";
@@ -60,11 +60,11 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //1.初始化api
-        FacehubApi.init(getApplicationContext());
+        //1.设置接入应用id
+        //2.初始化api
+//        FacehubApi.getApi().setAppId(APP_ID);
+        FacehubApi.init(getApplicationContext(),APP_ID,true);
         FacehubApi.initViews(getApplicationContext());
-        //2.设置接入应用id
-        FacehubApi.getApi().setAppId(APP_ID);
 
         FacehubApi.getApi().setViewStyle(1);
         //3.设置主色调 (示例:蓝色)

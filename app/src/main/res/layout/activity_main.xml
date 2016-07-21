@@ -42,6 +42,16 @@
                     android:visibility="gone" />
 
                 <Button
+                    android:id="@+id/create_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#555555"
+                    android:layout_margin="8dp"
+                    android:onClick="onClick"
+                    android:text="创建列表"
+                    android:textSize="13sp"/>
+
+                <Button
                     android:id="@+id/login1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

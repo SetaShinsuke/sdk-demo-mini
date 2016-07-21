@@ -15,7 +15,9 @@ import com.azusasoft.facehubcloudsdk.api.FacehubApi;
 import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
 import com.azusasoft.facehubcloudsdk.api.models.Emoticon;
+import com.azusasoft.facehubcloudsdk.api.models.FacehubSDKException;
 import com.azusasoft.facehubcloudsdk.api.utils.LogX;
+import com.azusasoft.facehubcloudsdk.api.utils.UtilMethods;
 import com.azusasoft.facehubcloudsdk.views.EmoticonKeyboardView;
 import com.azusasoft.facehubcloudsdk.views.EmoticonSendListener;
 import com.azusasoft.facehubcloudsdk.views.OnDeleteListener;
@@ -211,6 +213,23 @@ public class MainActivity extends FragmentActivity {
                 textView.setText("隐藏键盘");
                 emoticonKeyboardView.hide();
                 break;
+
+            case R.id.create_list:
+                FacehubApi.getApi().createUserListByName("新建列表", new ResultHandlerInterface() {
+                    @Override
+                    public void onResponse(Object response) {
+                        String s = response + "";
+                        textView.setText(s);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        String s = "新建列表出错 : " + e;
+                        textView.setText(s);
+                    }
+                });
+                break;
+
             case R.id.logout:
                 Log.v(Constants.TAG, "退出登录");
                 userId = FacehubApi.getApi().getUser().getUserId();
@@ -218,7 +237,14 @@ public class MainActivity extends FragmentActivity {
                     showToast("请先登录!", true);
                     return;
                 }
-                FacehubApi.getApi().logout();
+                try {
+                    FacehubApi.getApi().logout();
+                } catch (Exception e) {
+                    String msg = "退出登录出错 : " + e;
+                    textView.setText(msg);
+                    LogX.e(msg);
+                    return;
+                }
                 FacehubApi.getApi().exitViews();
                 textView.setText("已退出.");
                 showToast("退出成功!", true);
@@ -259,22 +285,43 @@ public class MainActivity extends FragmentActivity {
                 break;
 
             case R.id.register:
-                FacehubApi.getApi().registerUser(BaseApplication.ACCESS_KEY, BaseApplication.SIGN, BaseApplication.DEADLINE, new ResultHandlerInterface() {
-                    @Override
-                    public void onResponse(Object response) {
-                        HashMap<String, String> userData = (HashMap<String, String>) response;
-                        String id = userData.get("user_id");
-                        String token = userData.get("auth_token");
-                        String content = "注册用户成功!\nId : " + id + "\nToken : " + token;
-                        LogX.d(content);
-                        textView.setText(content);
-                    }
+                try {
+                    FacehubApi.getApi().registerUser(UtilMethods.getDeviceId(context) + (System.currentTimeMillis() % 1000), new ResultHandlerInterface() {
+                        @Override
+                        public void onResponse(Object response) {
+                            LogX.fastLog("注册response : " + response);
+                        }
 
-                    @Override
-                    public void onError(Exception e) {
-                        LogX.e("注册用户出错 : " + e);
+                        @Override
+                        public void onError(Exception e) {
+                            String s = "注册用户出错 : " + e;
+                            LogX.e(s);
+                            textView.setText(s);
                     }
-                });
+                    });
+                } catch (Exception e) {
+                    String sss = "注册用户出错 : " + e;
+                    LogX.e(sss);
+                    textView.setText(sss);
+                }
+//                FacehubApi.getApi().registerUser(BaseApplication.ACCESS_KEY, BaseApplication.SIGN, BaseApplication.DEADLINE, new ResultHandlerInterface() {
+//                    @Override
+//                    public void onResponse(Object response) {
+//                        HashMap<String, String> userData = (HashMap<String, String>) response;
+//                        String id = userData.get("user_id");
+//                        String token = userData.get("auth_token");
+//                        String content = "注册用户成功!\nId : " + id + "\nToken : " + token;
+//                        LogX.d(content);
+//                        textView.setText(content);
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        String s = "注册用户出错 : " + e;
+//                        LogX.e(s);
+//                        textView.setText(s);
+//                    }
+//                });
                 break;
 
             case R.id.test_get_by_id:
@@ -303,7 +350,8 @@ public class MainActivity extends FragmentActivity {
 
                     @Override
                     public void onError(Exception e) {
-                        textView.setText("登录失败!");
+                        String s = "登录失败!" + e;
+                        textView.setText(s);
                         Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
                     }
                 }, new ProgressInterface() {
@@ -325,7 +373,8 @@ public class MainActivity extends FragmentActivity {
 
                             @Override
                             public void onError(Exception e) {
-                                textView.setText("登录失败!");
+                                String s = "登录失败!" + e;
+                                textView.setText(s);
                                 Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
                             }
                         }, new ProgressInterface() {
