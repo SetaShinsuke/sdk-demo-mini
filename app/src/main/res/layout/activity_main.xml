@@ -49,7 +49,8 @@
                     android:layout_margin="8dp"
                     android:onClick="onClick"
                     android:text="创建列表"
-                    android:textSize="13sp"/>
+                    android:textSize="13sp"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/login1"
