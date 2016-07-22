@@ -264,7 +264,7 @@ public class MainActivity extends FragmentActivity {
                             textView.setText(s);
                         }
                     });
-                } catch (Exception e) {
+                } catch (FacehubSDKException e) {
                     String sss = "注册用户出错 : " + e;
                     LogX.e(sss);
                     textView.setText(sss);
@@ -298,47 +298,90 @@ public class MainActivity extends FragmentActivity {
     public void onLoginClick(View view) {
         switch (view.getId()) {
             case R.id.login1:
-                FacehubApi.getApi().login(BaseApplication.USER_ID, BaseApplication.AUTH_TOKEN, new ResultHandlerInterface() {
+                FacehubApi.getApi().login(BaseApplication.USER_ID, new ResultHandlerInterface() {
                     @Override
-                    public void onResponse(Object o) {
-                        textView.setText("登录成功!");
+                    public void onResponse(Object response) {
+                        User user = (User) response;
+                        String content = "登录用户成功!\nId : " + user.getUserId() + "\nToken : " + user.getToken();
+                        LogX.d(content);
+                        textView.setText(content);
                     }
 
                     @Override
                     public void onError(Exception e) {
-                        String s = "登录失败!" + e;
+                        String s = "登录用户出错 : " + e;
+                        LogX.e(s);
                         textView.setText(s);
-                        Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
                     }
                 }, new ProgressInterface() {
                     @Override
-                    public void onProgress(double v) {
-                        LogX.fastLog("登录中..." + v);
+                    public void onProgress(double process) {
+
                     }
                 });
+
+//                FacehubApi.getApi().login(BaseApplication.USER_ID, BaseApplication.AUTH_TOKEN, new ResultHandlerInterface() {
+//                    @Override
+//                    public void onResponse(Object o) {
+//                        textView.setText("登录成功!");
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        String s = "登录失败!" + e;
+//                        textView.setText(s);
+//                        Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
+//                    }
+//                }, new ProgressInterface() {
+//                    @Override
+//                    public void onProgress(double v) {
+//                        LogX.fastLog("登录中..." + v);
+//                    }
+//                });
                 break;
 
             case R.id.login2:
-                FacehubApi.getApi().login(BaseApplication.USER_ID_2
-                        , BaseApplication.AUTH_TOKEN_2
-                        , new ResultHandlerInterface() {
-                            @Override
-                            public void onResponse(Object o) {
-                                textView.setText("登录成功!");
-                            }
+                FacehubApi.getApi().login(BaseApplication.USER_ID_2, new ResultHandlerInterface() {
+                    @Override
+                    public void onResponse(Object response) {
+                        User user = (User) response;
+                        String content = "登录用户成功!\nId : " + user.getUserId() + "\nToken : " + user.getToken();
+                        LogX.d(content);
+                        textView.setText(content);
+                    }
 
-                            @Override
-                            public void onError(Exception e) {
-                                String s = "登录失败!" + e;
-                                textView.setText(s);
-                                Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
-                            }
-                        }, new ProgressInterface() {
-                            @Override
-                            public void onProgress(double v) {
-                                LogX.fastLog("登录中..." + v);
-                            }
-                        });
+                    @Override
+                    public void onError(Exception e) {
+                        String s = "登录用户出错 : " + e;
+                        LogX.e(s);
+                        textView.setText(s);
+                    }
+                }, new ProgressInterface() {
+                    @Override
+                    public void onProgress(double process) {
+
+                    }
+                });
+//                FacehubApi.getApi().login(BaseApplication.USER_ID_2
+//                        , BaseApplication.AUTH_TOKEN_2
+//                        , new ResultHandlerInterface() {
+//                            @Override
+//                            public void onResponse(Object o) {
+//                                textView.setText("登录成功!");
+//                            }
+//
+//                            @Override
+//                            public void onError(Exception e) {
+//                                String s = "登录失败!" + e;
+//                                textView.setText(s);
+//                                Toast.makeText(context, "登录失败!", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }, new ProgressInterface() {
+//                            @Override
+//                            public void onProgress(double v) {
+//                                LogX.fastLog("登录中..." + v);
+//                            }
+//                        });
                 break;
         }
     }

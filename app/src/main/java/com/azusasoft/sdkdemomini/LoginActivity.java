@@ -57,7 +57,7 @@ public class LoginActivity extends BaseActivity {
         switch (view.getId()){
             case R.id.login1:
                 progressBar.setVisibility(View.VISIBLE);
-                FacehubApi.getApi().login(BaseApplication.USER_ID, BaseApplication.AUTH_TOKEN, new ResultHandlerInterface() {
+                FacehubApi.getApi().login(BaseApplication.USER_ID, new ResultHandlerInterface() {
                     @Override
                     public void onResponse(Object o) {
                         progressBar.setVisibility(View.GONE);
@@ -85,7 +85,6 @@ public class LoginActivity extends BaseActivity {
             case R.id.login2:
                 progressBar.setVisibility(View.VISIBLE);
                 FacehubApi.getApi().login("73be42c0-af9d-42fc-916d-bf6588559d8f"
-                        , "6a5033e05e0339849130d5780b461839"
                         , new ResultHandlerInterface() {
                     @Override
                     public void onResponse(Object o) {

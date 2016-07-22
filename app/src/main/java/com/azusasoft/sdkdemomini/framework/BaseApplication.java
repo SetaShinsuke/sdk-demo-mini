@@ -63,7 +63,7 @@ public class BaseApplication extends Application {
         //1.设置接入应用id
         //2.初始化api
 //        FacehubApi.getApi().setAppId(APP_ID);
-        FacehubApi.init(getApplicationContext(),APP_ID,false);
+        FacehubApi.init(getApplicationContext(),APP_ID,true);
         FacehubApi.initViews(getApplicationContext());
 
         FacehubApi.getApi().setViewStyle(1);
