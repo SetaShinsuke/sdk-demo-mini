@@ -16,6 +16,7 @@ import com.azusasoft.facehubcloudsdk.api.ProgressInterface;
 import com.azusasoft.facehubcloudsdk.api.ResultHandlerInterface;
 import com.azusasoft.facehubcloudsdk.api.models.Emoticon;
 import com.azusasoft.facehubcloudsdk.api.models.FacehubSDKException;
+import com.azusasoft.facehubcloudsdk.api.models.User;
 import com.azusasoft.facehubcloudsdk.api.utils.LogX;
 import com.azusasoft.facehubcloudsdk.api.utils.UtilMethods;
 import com.azusasoft.facehubcloudsdk.views.EmoticonKeyboardView;
@@ -162,59 +163,24 @@ public class MainActivity extends FragmentActivity {
 
     public void onClick(View view) {
         String s = "";
-        final String userId;
         switch (view.getId()) {
             case R.id.crash:
                 String str = "a";
                 Log.d(Constants.TAG, "str : " + str.charAt(2));
                 break;
-
-//            case R.id.login:
-//                s = "登录中...";
-//                progressBar.setVisibility(View.VISIBLE);
-//                FacehubApi.getApi().login(BaseApplication.USER_ID, BaseApplication.AUTH_TOKEN, new ResultHandlerInterface() {
-//                    @Override
-//                    public void onResponse(Object o) {
-//                        textView.setText("登录成功!");
-//                        showToast("登录成功", true);
-//                        emoticonKeyboardView.refresh();
-//                        progressBar.setVisibility(View.GONE);
-//                    }
-//
-//                    @Override
-//                    public void onError(Exception e) {
-//                        textView.setText("登录失败!\n" + e);
-//                        showToast("登录失败", true);
-//                        progressBar.setVisibility(View.GONE);
-//                    }
-//                }, new ProgressInterface() {
-//                    @Override
-//                    public void onProgress(double v) {
-//                        LogX.fastLog("登录中..." + v);
-//                        textView.setText("登录中..." + v + "%");
-//                    }
-//                });
-//                break;
             case R.id.show_keyboard:
-                userId = FacehubApi.getApi().getUser().getUserId();
-                if (!isLogin(userId)) {
-                    showToast("请先登录!", true);
-                    return;
-                }
                 textView.setText("显示键盘");
                 emoticonKeyboardView.show();
                 break;
             case R.id.hide_keyboard:
-                userId = FacehubApi.getApi().getUser().getUserId();
-                if (!isLogin(userId)) {
-                    showToast("请先登录!", true);
-                    return;
-                }
                 textView.setText("隐藏键盘");
                 emoticonKeyboardView.hide();
                 break;
 
             case R.id.create_list:
+                if(!isLogin()){
+                    return;
+                }
                 FacehubApi.getApi().createUserListByName("新建列表", new ResultHandlerInterface() {
                     @Override
                     public void onResponse(Object response) {
@@ -232,9 +198,7 @@ public class MainActivity extends FragmentActivity {
 
             case R.id.logout:
                 Log.v(Constants.TAG, "退出登录");
-                userId = FacehubApi.getApi().getUser().getUserId();
-                if (!isLogin(userId)) {
-                    showToast("请先登录!", true);
+                if (!isLogin()) {
                     return;
                 }
                 try {
@@ -250,11 +214,9 @@ public class MainActivity extends FragmentActivity {
                 showToast("退出成功!", true);
                 break;
             case R.id.find:
-//                String keyword = "0";
-//                textView.setText("查找表情 【"+keyword+"】");
-//                Emoticon emoticon = FacehubApi.getApi().findEmoticonByDescription(keyword);
-//                textView.setText("查找表情 【"+keyword +"】 result : " + emoticon);
-//                FacehubApi.getDbHelper().export();
+                if(!isLogin()){
+                    return;
+                }
                 FindEmoticonDialog dialog = new FindEmoticonDialog();
                 dialog.setResultHandlerInterface(new ResultHandlerInterface() {
                     @Override
@@ -286,10 +248,13 @@ public class MainActivity extends FragmentActivity {
 
             case R.id.register:
                 try {
-                    FacehubApi.getApi().registerUser(UtilMethods.getDeviceId(context) + (System.currentTimeMillis() % 1000), new ResultHandlerInterface() {
+                    FacehubApi.getApi().registerUser(UtilMethods.getDeviceId(context) + (int)(Math.random()*10000), new ResultHandlerInterface() {
                         @Override
                         public void onResponse(Object response) {
-                            LogX.fastLog("注册response : " + response);
+                            User user = (User) response;
+                            String content = "注册用户成功!\nId : " + user.getUserId() + "\nToken : " + user.getToken();
+                            LogX.d(content);
+                            textView.setText(content);
                         }
 
                         @Override
@@ -297,42 +262,33 @@ public class MainActivity extends FragmentActivity {
                             String s = "注册用户出错 : " + e;
                             LogX.e(s);
                             textView.setText(s);
-                    }
+                        }
                     });
                 } catch (Exception e) {
                     String sss = "注册用户出错 : " + e;
                     LogX.e(sss);
                     textView.setText(sss);
                 }
-//                FacehubApi.getApi().registerUser(BaseApplication.ACCESS_KEY, BaseApplication.SIGN, BaseApplication.DEADLINE, new ResultHandlerInterface() {
-//                    @Override
-//                    public void onResponse(Object response) {
-//                        HashMap<String, String> userData = (HashMap<String, String>) response;
-//                        String id = userData.get("user_id");
-//                        String token = userData.get("auth_token");
-//                        String content = "注册用户成功!\nId : " + id + "\nToken : " + token;
-//                        LogX.d(content);
-//                        textView.setText(content);
-//                    }
-//
-//                    @Override
-//                    public void onError(Exception e) {
-//                        String s = "注册用户出错 : " + e;
-//                        LogX.e(s);
-//                        textView.setText(s);
-//                    }
-//                });
                 break;
 
             case R.id.test_get_by_id:
+                if(!isLogin()){
+                    return;
+                }
                 testGetEmoById();
                 break;
 
             case R.id.store0:
+                if(!isLogin()){
+                    return;
+                }
                 Intent intent0 = new Intent(context, EmoStoreActivity.class);
                 context.startActivity(intent0);
                 break;
             case R.id.store1:
+                if(!isLogin()){
+                    return;
+                }
                 Intent intent1 = new Intent(context, EmoStoreActivityWC.class);
                 context.startActivity(intent1);
                 break;
@@ -387,9 +343,13 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    private boolean isLogin(String userId) {
-        return true;
-//        return userId == null || userId.equals("");
+    private boolean isLogin() {
+        LogX.fastLog("check login user id : " + FacehubApi.getApi().getUser().getUserId());
+        boolean flag = FacehubApi.getApi().getUser().isLogin();
+        if(!flag) {
+            showToast("请先登录!", false);
+        }
+        return flag;
     }
 
     private void showToast(CharSequence content, boolean isLong) {
