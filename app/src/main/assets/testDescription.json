@@ -1,0 +1,162 @@
+{
+    "local_emoticons": {
+        "needMixLayout":true,
+        "emoticons": [
+            {
+                "description": "NO",
+                "id": "emoji_id_1",
+                "format": "png"
+            },
+            {
+                "description": "ok",
+                "id": "emoji_id_2",
+                "format": "png"
+            },
+            {
+                "description": "亲亲",
+                "id": "emoji_id_3",
+                "format": "png"
+            },
+            {
+                "description": "伤心",
+                "id": "emoji_id_4",
+                "format": "png"
+            },
+            {
+                "description": "便便",
+                "id": "emoji_id_5",
+                "format": "png"
+            },
+            {
+                "description": "傲慢arrogance",
+                "id": "emoji_id_6",
+                "format": "png"
+            },
+            {
+                "description": "再见",
+                "id": "emoji_id_7",
+                "format": "png"
+            },
+            {
+                "description": "冷汗cold sweat",
+                "id": "emoji_id_8",
+                "format": "png"
+            },
+            {
+                "description": "凋谢",
+                "id": "emoji_id_9",
+                "format": "png"
+            },
+            {
+                "description": "刀",
+                "id": "emoji_id_10",
+                "format": "png"
+            },
+            {
+                "description": "勾引",
+                "id": "emoji_id_11",
+                "format": "png"
+            },
+            {
+                "description": "发呆petrification",
+                "id": "emoji_id_12",
+                "format": "png"
+            },
+            {
+                "description": "发怒get angry",
+                "id": "emoji_id_13",
+                "format": "png"
+            },
+            {
+                "description": "可怜",
+                "id": "emoji_id_14",
+                "format": "png"
+            },
+            {
+                "description": "可爱loveliness",
+                "id": "emoji_id_15",
+                "format": "png"
+            },
+            {
+                "description": "右哼",
+                "id": "emoji_id_16",
+                "format": "png"
+            },
+            {
+                "description": "吓",
+                "id": "emoji_id_17",
+                "format": "png"
+            },
+            {
+                "description": "呕吐",
+                "id": "emoji_id_18",
+                "format": "png"
+            },
+            {
+                "description": "呲牙",
+                "id": "emoji_id_19",
+                "format": "png"
+            },
+            {
+                "description": "咒骂",
+                "id": "emoji_id_20",
+                "format": "png"
+            },
+            {
+                "description": "咖啡",
+                "id": "emoji_id_21",
+                "format": "png"
+            }
+        ]
+    },
+    "custom_list":[
+        {
+            "row":2,
+            "column":4,
+            "cover":{
+                "id":"cover_id_1",
+                "format":"png"
+            },
+            "emoticons":[
+                {
+                    "description": "haha",
+                    "id": "emoticon_id_1",
+                    "format": "png"
+                },
+                {
+                    "description": "fuck",
+                    "id": "emoticon_id_2",
+                    "format": "png"
+                }
+            ]
+        },{
+            "row":2,
+            "column":4,
+            "cover":{
+                "id":"cover_id_1",
+                "format":"png"
+            },
+            "emoticons":[
+                {
+                    "description": "haha",
+                    "id": "emoticon_id_1",
+                    "format": "png"
+                },
+                {
+                    "description": "fuck",
+                    "id": "emoticon_id_2",
+                    "format": "png"
+                }
+            ]
+        }
+    ],
+    "voice":{
+            "row":2,
+            "column":4,
+            "cover":{
+                "id":"cover_id_1",
+                "format":"png"
+            },
+            "emoticons":[]
+    }
+}
