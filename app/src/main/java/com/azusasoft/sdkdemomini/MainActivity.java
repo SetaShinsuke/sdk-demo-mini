@@ -121,14 +121,25 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onSend(Emoticon emoticon) {
                 currentEmoId = emoticon.getId();
+                String s = "输入表情 : [" + emoticon.getDescription() + "]";
+                String content="";
                 if (emoticon.isLocal()) {
-                    String s = "输入表情 : [" + emoticon.getDescription() + "]";
-                    String content = s + "\n本地表情资源路径 : " + "assets://" + emoticon.getFullPath();
+                    switch (emoticon.getLocalType()){
+                        case "local_emoticons":
+                            content = s + "\n本地表情资源路径 : " + "assets://" + emoticon.getFullPath();
+                            break;
+                        case "custom_list":
+                            content = s + "\n自定义本地表情资源路径 : " + "assets://" + emoticon.getFullPath();
+                            break;
+                        case "voice":
+                            content = s + "\n语音表情，描述 : " + emoticon.getDescription();
+                            break;
+                    }
                     textView.setText(content);
                     showToast(s, false);
                 } else {
-                    String s = "发送表情 : [" + emoticon.getId() + "]";
-                    String content = s + "\n表情文件路径 : " + emoticon.getFullPath();
+                    s = "发送表情 : [" + emoticon.getId() + "]";
+                    content = s + "\n表情文件路径 : " + emoticon.getFullPath();
                     textView.setText(content);
                     showToast(s, false);
                 }
