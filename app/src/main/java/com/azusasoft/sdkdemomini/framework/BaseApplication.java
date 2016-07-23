@@ -63,7 +63,7 @@ public class BaseApplication extends Application {
         //1.设置接入应用id
         //2.初始化api
 //        FacehubApi.getApi().setAppId(APP_ID);
-        FacehubApi.init(getApplicationContext(),APP_ID,true);
+        FacehubApi.init(getApplicationContext(),APP_ID,false);
         FacehubApi.initViews(getApplicationContext());
 
         FacehubApi.getApi().setViewStyle(1);
@@ -79,11 +79,11 @@ public class BaseApplication extends Application {
          * 参数说明 : {@link EmoticonKeyboardView#loadEmoticonFromLocal(int, String, boolean)}
          *                      1.配置文件版本号;
          *                      2.配置文件，在assets文件夹内的具体路径;
-         *                      3.是否允许图文混排，若设置为true,则在显示本地预置表情时，显示键盘内的【删除按钮】和【发送按钮】;
-         *                      4.抛出异常 : {@link LocalEmoPackageParseException} 配置JSON解析出错时抛出异常;
+         *                      3.抛出异常 : {@link LocalEmoPackageParseException} 配置JSON解析出错时抛出异常;
          */
         try {
-            FacehubApi.getApi().loadEmoticonFromLocal(1, "emoticonDescription.json", true);
+            FacehubApi.getApi().loadEmoticonFromLocal(2, "testDescription.json");
+//            FacehubApi.getApi().loadEmoticonFromLocal(1, "emoticonDescription.json", true);
         } catch (LocalEmoPackageParseException e) {
             Log.e(Constants.TAG, "解析预置表情 配置Json出错 : " + e);
             e.printStackTrace();
