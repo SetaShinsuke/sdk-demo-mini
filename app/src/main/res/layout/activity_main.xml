@@ -86,7 +86,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:onClick="onClick"
-                        android:text="商店-微信"/>
+                        android:text="商店-风格1"/>
 
                     <Button
                         android:id="@+id/find"
@@ -127,7 +127,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:onClick="onLoginClick"
-                        android:text="登录-账号1"
+                        android:text="登录-账号2"
                         android:textColor="@android:color/white"  />
                 </LinearLayout>
 

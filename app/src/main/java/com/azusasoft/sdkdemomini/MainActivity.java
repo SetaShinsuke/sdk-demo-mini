@@ -248,11 +248,12 @@ public class MainActivity extends FragmentActivity {
 
             case R.id.register:
                 try {
-                    FacehubApi.getApi().registerUser(UtilMethods.getDeviceId(context) + (int)(Math.random()*10000), new ResultHandlerInterface() {
+                    final String bindingId = UtilMethods.getDeviceId(context) + (int)(Math.random()*10000);
+                    FacehubApi.getApi().registerUser(bindingId, new ResultHandlerInterface() {
                         @Override
                         public void onResponse(Object response) {
                             User user = (User) response;
-                            String content = "注册用户成功!\nId : " + user.getUserId() + "\nToken : " + user.getToken();
+                            String content = "注册用户成功!\nBindingId : "+ bindingId +"\nId : " + user.getUserId() + "\nToken : " + user.getToken();
                             LogX.d(content);
                             textView.setText(content);
                         }
@@ -298,11 +299,12 @@ public class MainActivity extends FragmentActivity {
     public void onLoginClick(View view) {
         switch (view.getId()) {
             case R.id.login1:
-                FacehubApi.getApi().login(BaseApplication.USER_ID, new ResultHandlerInterface() {
+                final String bindingId = BaseApplication.USER_ID;
+                FacehubApi.getApi().login(bindingId, new ResultHandlerInterface() {
                     @Override
                     public void onResponse(Object response) {
                         User user = (User) response;
-                        String content = "登录用户成功!\nId : " + user.getUserId() + "\nToken : " + user.getToken();
+                        String content = "登录用户成功!\nBindingId : "+ bindingId +"\nId : " + user.getUserId() + "\nToken : " + user.getToken();
                         LogX.d(content);
                         textView.setText(content);
                     }
@@ -341,11 +343,12 @@ public class MainActivity extends FragmentActivity {
                 break;
 
             case R.id.login2:
-                FacehubApi.getApi().login(BaseApplication.USER_ID_2, new ResultHandlerInterface() {
+                final String bindingId2 = BaseApplication.USER_ID_2;
+                FacehubApi.getApi().login(bindingId2, new ResultHandlerInterface() {
                     @Override
                     public void onResponse(Object response) {
                         User user = (User) response;
-                        String content = "登录用户成功!\nId : " + user.getUserId() + "\nToken : " + user.getToken();
+                        String content = "登录用户成功!\nBindingId : "+ bindingId2 +"\nId : " + user.getUserId() + "\nToken : " + user.getToken();
                         LogX.d(content);
                         textView.setText(content);
                     }
